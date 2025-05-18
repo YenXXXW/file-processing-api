@@ -1,9 +1,27 @@
 package main
 
 import (
-	"fmt"
+	"log"
+
+	"go.uber.org/zap"
 )
 
 func main() {
-	fmt.Println("this is working now")
+
+	config := config{
+		addr: ":8080",
+	}
+
+	logger, _ := zap.NewProduction()
+	sugarLogger := logger.Sugar()
+
+	app := &application{
+		config: config,
+		logger: sugarLogger,
+	}
+
+	mux := app.mount()
+
+	log.Fatal(app.run(mux))
+
 }

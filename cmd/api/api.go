@@ -54,6 +54,20 @@ func (app *application) mount() http.Handler {
 
 }
 
+func (app *application) run(mux http.Handler) error {
+	srv := &http.Server{
+		Addr:         app.config.addr,
+		Handler:      mux,
+		ReadTimeout:  10 * time.Second,
+		WriteTimeout: 10 * time.Second,
+	}
+
+	app.logger.Infof("server has started at %s", app.config.addr)
+
+	return srv.ListenAndServe()
+
+}
+
 func AllowOriginFunc(r *http.Request, origin string) bool {
 	return origin != ""
 }

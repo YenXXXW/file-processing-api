@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"go.uber.org/zap"
+	"github.com/yenxxxw/file-processing-api/internal/modifiedLogger"
 )
 
 func main() {
@@ -12,12 +12,11 @@ func main() {
 		addr: ":8080",
 	}
 
-	logger, _ := zap.NewProduction()
-	sugarLogger := logger.Sugar()
+	sugar := modifiedLogger.InitLogger()
 
 	app := &application{
 		config: config,
-		logger: sugarLogger,
+		logger: sugar,
 	}
 
 	mux := app.mount()

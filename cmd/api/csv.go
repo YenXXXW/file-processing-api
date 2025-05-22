@@ -8,14 +8,11 @@ import (
 	"strconv"
 )
 
-type User struct {
-	Age          int `json:"age"`
-	Fnlwgt       int `json:"fmlwgt"`
-	EducationNum int `json:"education_num"`
-	CapitalGain  int `json:"capital_gain"`
-	CapitalLoss  int `json:"capital_lost"`
-	HoursPerWeek int `json:"hours_per_week"`
-	IncomeLevel  int `json:"income_level"`
+type Row struct {
+	Fields map[string]interface{}
+}
+
+type WorkerPool struct {
 }
 
 func (app *application) readCsv(w http.ResponseWriter, r *http.Request) {

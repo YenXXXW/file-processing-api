@@ -1,4 +1,4 @@
-module github.com/yenxxxw/file-processing-api
+module github.com/yenxxxw/image-processing-api
 
 go 1.23.3
 

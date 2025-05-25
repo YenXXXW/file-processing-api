@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/yenxxxw/file-processing-api/internal/modifiedLogger"
+	"github.com/yenxxxw/image-processing-api/internal/modifiedLogger"
 )
 
 func main() {

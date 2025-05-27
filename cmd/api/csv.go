@@ -12,9 +12,6 @@ type Row struct {
 	Fields map[string]interface{}
 }
 
-type WorkerPool struct {
-}
-
 func (app *application) readCsv(w http.ResponseWriter, r *http.Request) {
 
 	reader := csv.NewReader(r.Body)

@@ -49,6 +49,7 @@ func (app *application) mount() http.Handler {
 		r.Get("/health", app.healthCheckHanlder)
 		r.Post("/test", app.readCsv)
 		r.Post("/image", app.extractImage)
+		r.Post("/scale", app.scaleImage)
 
 	})
 

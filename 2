@@ -1,0 +1,29 @@
+package main
+
+import (
+	"errors"
+	"net/http"
+	"strconv"
+)
+
+func (app *application) scaleImage(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseMultipartForm(10 * 1024 * 1024)
+	if err != nil {
+		app.badRequesetError(w, r, err)
+	}
+
+	width := r.PostForm.Get("width")
+	height := r.PostForm.Get("height")
+	var wd, ht int
+	wd, err = strconv.Atoi(width)
+	if err != nil {
+		app.badRequesetError(w, r, errors.New("width must be a number"))
+		return
+	}
+
+	ht, err = strconv.Atoi(height)
+	if err != nil {
+		app.badRequesetError(w, r, errors.New("width must be a number"))
+	}
+
+}

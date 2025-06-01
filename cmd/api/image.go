@@ -36,6 +36,7 @@ func (wp *WorkerPool) worker() {
 			newImg, err = image.ConvertPNG()
 		}
 		if image.Mime == "image/png" {
+			fmt.Println("converting to JPG")
 			newImg, err = image.ConvertJPG()
 		}
 		if err == nil {
@@ -68,15 +69,12 @@ func (wp *WorkerPool) run(w http.ResponseWriter) {
 	zipWriter := zip.NewWriter(w)
 	defer zipWriter.Close()
 	for result := range wp.imageRecChan {
-		fmt.Println("result comimg")
 		suffix := strings.Split(result.Name, ".")[1]
-		fmt.Println(suffix)
 		var name string
 		if suffix == "png" {
 			name = strings.TrimSuffix(result.Name, fmt.Sprintf(".%s", suffix)) + ".jpg"
 		} else if suffix == "jpeg" || suffix == "jpg" {
 			name = strings.TrimSuffix(result.Name, fmt.Sprintf(".%s", suffix)) + ".png"
-			fmt.Println("name is", name)
 		}
 		zipEntry, err := zipWriter.Create(name)
 		if err != nil {
@@ -170,6 +168,7 @@ func (app *application) extractImage(w http.ResponseWriter, r *http.Request) {
 
 		fileName := header.Filename
 		fileMime := header.Header.Get("Content-Type")
+		app.logger.Info(fileMime)
 
 		defer file.Close()
 
